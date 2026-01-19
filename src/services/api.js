@@ -1,9 +1,19 @@
 import axios from 'axios';
 
-// In production, VITE_API_URL should be set (e.g. https://my-backend.onrender.com/api/v1)
-// In development, it falls back to /api/v1 which is proxied by Vite
+// Helper to determine base URL
+const getBaseUrl = () => {
+    const envUrl = import.meta.env.VITE_API_URL;
+    // If no env var, use local proxy (development)
+    if (!envUrl) return '/api/v1';
+
+    // If env var exists, ensure it ends with /api/v1
+    if (envUrl.endsWith('/api/v1')) return envUrl;
+    if (envUrl.endsWith('/')) return `${envUrl}api/v1`;
+    return `${envUrl}/api/v1`;
+};
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || '/api/v1',
+    baseURL: getBaseUrl(),
     headers: {
         'Content-Type': 'application/json',
     },
