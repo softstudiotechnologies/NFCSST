@@ -47,7 +47,13 @@ export const AuthProvider = ({ children }) => {
     // Register
     const register = async (email, password, phone) => {
         try {
-            const { data } = await api.post('/auth/register', { email, password, phone });
+            // Convert empty phone string to null to avoid unique constraint error in MongoDB
+            const payload = {
+                email,
+                password,
+                phone: phone ? phone : null
+            };
+            const { data } = await api.post('/auth/register', payload);
             localStorage.setItem('token', data.token);
             setUser(data);
             toast.success('Registration successful');

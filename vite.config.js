@@ -12,5 +12,17 @@ export default defineConfig({
                 changeOrigin: true
             }
         }
+    },
+    build: {
+        chunkSizeWarningLimit: 1000,
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['react', 'react-dom', 'react-router-dom'],
+                    ui: ['@dnd-kit/core', '@dnd-kit/sortable', 'framer-motion', 'react-icons'],
+                    charts: ['recharts']
+                }
+            }
+        }
     }
 })

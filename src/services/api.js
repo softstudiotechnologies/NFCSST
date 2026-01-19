@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+// In production, VITE_API_URL should be set (e.g. https://my-backend.onrender.com/api/v1)
+// In development, it falls back to /api/v1 which is proxied by Vite
 const api = axios.create({
-    baseURL: '/api/v1', // Proxy handles this in Vite config
+    baseURL: import.meta.env.VITE_API_URL || '/api/v1',
     headers: {
         'Content-Type': 'application/json',
     },
