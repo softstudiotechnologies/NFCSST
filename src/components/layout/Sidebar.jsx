@@ -26,7 +26,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     const isActive = (path) => location.pathname === path;
 
     const SidebarContent = () => (
-        <div className="flex h-full flex-col bg-black border-r border-gray-800 text-white w-64">
+        <div className="flex h-full flex-col bg-black border-r border-gray-800 text-white w-full">
             <div className="flex h-16 shrink-0 items-center px-6">
                 <img src="/logo.png" alt="Soft Studio Technology" className="h-8 md:h-10 w-auto" />
             </div>
@@ -65,7 +65,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     return (
         <>
             {/* Desktop Sidebar: hidden on mobile */}
-            <div className="hidden lg:flex lg:flex-shrink-0">
+            <div className="hidden lg:flex lg:flex-shrink-0 w-64">
                 <SidebarContent />
             </div>
 
