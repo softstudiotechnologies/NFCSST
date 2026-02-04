@@ -8,14 +8,14 @@ const Header = ({ onMenuClick }) => {
         <header className="bg-secondary shadow-sm border-b border-gray-800">
             <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center">
-                    <button
-                        type="button"
-                        className="text-gray-400 hover:text-white focus:outline-none lg:hidden mr-4"
-                        onClick={onMenuClick}
-                    >
-                        <FiMenu className="h-6 w-6" />
-                    </button>
-                    <h1 className="text-xl font-semibold text-white">Dashboard</h1>
+                    {/* Mobile Logo */}
+                    <div className="lg:hidden flex items-center">
+                        <img src="/logo.png" alt="SST" className="h-8 w-auto mr-2" />
+                        <span className="text-lg font-bold text-white tracking-tight">SoftStudio</span>
+                    </div>
+
+                    {/* Desktop Title */}
+                    <h1 className="hidden lg:block text-xl font-semibold text-white">Dashboard</h1>
                 </div>
                 <div className="flex items-center">
                     <div className="flex items-center space-x-3">
