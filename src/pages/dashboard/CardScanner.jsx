@@ -45,21 +45,30 @@ const CardScanner = () => {
     };
 
     const parseText = (text) => {
-        // Simple heuristic extraction
-        const lines = text.split('\n').filter(line => line.trim().length > 0);
+        const lines = text.split('\n').filter(line => line.trim().length > 1);
         const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
         const phoneRegex = /(\+?[\d\s-]{10,})/g;
 
         const emailMatch = text.match(emailRegex);
         const phoneMatch = text.match(phoneRegex);
 
+        // Better heuristics: 
+        // 1. Remove obvious generic lines (address, website) from name search
+        const filteredForName = lines.filter(l =>
+            !l.toLowerCase().includes('www.') &&
+            !l.toLowerCase().includes('http') &&
+            !l.toLowerCase().includes('@') &&
+            !/\d{4,}/.test(l) // Ignore lines with long numbers (likely address/phone)
+        );
+
         setScannedData({
-            name: lines[0] || '', // Guess first line is name
-            company: lines[1] || '', // Guess second line is company
+            name: filteredForName[0] || lines[0] || '',
+            company: filteredForName[1] || lines[1] || '',
             email: emailMatch ? emailMatch[0] : '',
             phone: phoneMatch ? phoneMatch[0] : '',
-            notes: text, // Save full text as notes
-            originalImage: imgSrc
+            notes: text,
+            originalImage: imgSrc,
+            allLines: lines // Keep all lines for user to pick from if needed
         });
     };
 
@@ -134,21 +143,45 @@ const CardScanner = () => {
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-400 mb-1">Name</label>
-                                <input
-                                    type="text"
-                                    value={scannedData.name}
-                                    onChange={e => setScannedData({ ...scannedData, name: e.target.value })}
-                                    className="w-full bg-black border border-gray-700 rounded p-2 text-white"
-                                />
+                                <div className="space-y-2">
+                                    <input
+                                        type="text"
+                                        value={scannedData.name}
+                                        onChange={e => setScannedData({ ...scannedData, name: e.target.value })}
+                                        className="w-full bg-black border border-gray-700 rounded p-2 text-white"
+                                    />
+                                    <select
+                                        className="w-full bg-zinc-800 border-none text-[10px] text-gray-400 rounded p-1"
+                                        onChange={(e) => setScannedData({ ...scannedData, name: e.target.value })}
+                                        value=""
+                                    >
+                                        <option value="" disabled>Select correctly from detected text...</option>
+                                        {scannedData.allLines?.map((l, i) => (
+                                            <option key={i} value={l}>{l}</option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-400 mb-1">Company</label>
-                                <input
-                                    type="text"
-                                    value={scannedData.company}
-                                    onChange={e => setScannedData({ ...scannedData, company: e.target.value })}
-                                    className="w-full bg-black border border-gray-700 rounded p-2 text-white"
-                                />
+                                <div className="space-y-2">
+                                    <input
+                                        type="text"
+                                        value={scannedData.company}
+                                        onChange={e => setScannedData({ ...scannedData, company: e.target.value })}
+                                        className="w-full bg-black border border-gray-700 rounded p-2 text-white"
+                                    />
+                                    <select
+                                        className="w-full bg-zinc-800 border-none text-[10px] text-gray-400 rounded p-1"
+                                        onChange={(e) => setScannedData({ ...scannedData, company: e.target.value })}
+                                        value=""
+                                    >
+                                        <option value="" disabled>Select correctly from detected text...</option>
+                                        {scannedData.allLines?.map((l, i) => (
+                                            <option key={i} value={l}>{l}</option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
