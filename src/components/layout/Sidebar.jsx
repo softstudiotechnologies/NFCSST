@@ -28,7 +28,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     const SidebarContent = () => (
         <div className="flex h-full flex-col bg-black border-r border-gray-800 text-white w-full">
             <div className="flex h-16 shrink-0 items-center px-6">
-                <img src="/logo.png" alt="Soft Studio Technology" className="h-8 md:h-10 w-auto" />
+                <img src="/logo.svg" alt="Soft Studio Technology" className="h-8 md:h-10 w-auto" />
             </div>
             <nav className="flex flex-1 flex-col px-4 py-4 space-y-1">
                 {navigation.map((item) => (

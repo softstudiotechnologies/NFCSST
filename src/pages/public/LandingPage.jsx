@@ -8,7 +8,7 @@ const LandingPage = () => {
             {/* Navbar */}
             <nav className="absolute top-0 w-full z-50 px-6 py-6 flex justify-between items-center max-w-7xl mx-auto left-0 right-0">
                 <div className="flex items-center">
-                    <img src="/logo.png" alt="Soft Studio" className="h-10 w-auto mr-3" />
+                    <img src="/logo.svg" alt="Soft Studio" className="h-10 w-auto mr-3" />
                     <span className="text-xl font-bold tracking-tighter">SOFT STUDIO</span>
                 </div>
                 <div className="space-x-4">
