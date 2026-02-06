@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import Webcam from 'react-webcam';
 import Tesseract from 'tesseract.js';
-import { FiCamera, FiRefreshCw, FiSave, FiCheck } from 'react-icons/fi';
+import { FiCamera, FiRefreshCw, FiSave, FiCheck, FiRepeat } from 'react-icons/fi';
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 
@@ -11,6 +11,7 @@ const CardScanner = () => {
     const [scanning, setScanning] = useState(false);
     const [progress, setProgress] = useState(0);
     const [scannedData, setScannedData] = useState(null);
+    const [facingMode, setFacingMode] = useState('environment'); // Default to back camera
 
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -73,6 +74,10 @@ const CardScanner = () => {
         }
     };
 
+    const toggleCamera = () => {
+        setFacingMode(prev => prev === 'user' ? 'environment' : 'user');
+    };
+
     return (
         <div className="p-4 sm:p-6">
             <h2 className="text-2xl font-bold text-white mb-6">AI Business Card Scanner</h2>
@@ -87,9 +92,17 @@ const CardScanner = () => {
                                     audio={false}
                                     ref={webcamRef}
                                     screenshotFormat="image/jpeg"
+                                    videoConstraints={{ facingMode: facingMode }}
                                     className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 border-2 border-primary opacity-50 m-8 rounded border-dashed pointer-events-none"></div>
+                                <button
+                                    onClick={toggleCamera}
+                                    className="absolute top-4 right-4 p-3 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors backdrop-blur-sm"
+                                    title="Switch Camera"
+                                >
+                                    <FiRepeat className="w-6 h-6" />
+                                </button>
                             </div>
                             <button
                                 onClick={capture}
