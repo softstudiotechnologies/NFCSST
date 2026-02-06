@@ -7,7 +7,8 @@ import {
     FiSettings,
     FiLogOut,
     FiCamera,
-    FiChevronRight
+    FiChevronRight,
+    FiUsers
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 
@@ -18,6 +19,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     const navigation = [
         { name: 'Dashboard', href: '/dashboard', icon: FiHome },
         { name: 'My Profile', href: '/profile/edit', icon: FiUser },
+        { name: 'Captured Leads', href: '/leads', icon: FiUsers },
         { name: 'NFC Cards', href: '/cards', icon: FiCreditCard },
         { name: 'Card Scanner', href: '/scanner', icon: FiCamera },
         { name: 'Analytics', href: '/analytics', icon: FiPieChart },

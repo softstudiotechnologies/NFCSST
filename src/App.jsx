@@ -10,6 +10,7 @@ import PublicProfile from './pages/public/PublicProfile';
 import Analytics from './pages/dashboard/Analytics';
 import CardScanner from './pages/dashboard/CardScanner';
 import Cards from './pages/dashboard/Cards';
+import Leads from './pages/dashboard/Leads';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import LandingPage from './pages/public/LandingPage';
 
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
                         <Route path="dashboard" element={<DashboardHome />} />
                         <Route path="profile/edit" element={<ProfileEdit />} />
+                        <Route path="leads" element={<Leads />} />
                         <Route path="cards" element={<Cards />} />
                         <Route path="scanner" element={<CardScanner />} />
                         <Route path="analytics" element={<Analytics />} />
