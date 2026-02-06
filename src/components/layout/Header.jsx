@@ -11,7 +11,7 @@ const Header = ({ onMenuClick }) => {
                     {/* Mobile Logo */}
                     <div className="lg:hidden flex items-center">
                         <img src="/logo.svg" alt="SST" className="h-8 w-auto mr-2" />
-                        <span className="text-lg font-bold text-white tracking-tight">SoftStudio</span>
+                        <span className="text-lg font-bold text-white tracking-tight uppercase">Soft Studio Technologies</span>
                     </div>
 
                     {/* Desktop Title */}
